@@ -3,26 +3,23 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const apiKey = process.env.API_KEY;
+const apiKey = process.env.SECRET_KEY;
 
 // Get the location of the person => gives lat/long
 async function getGeolocation(): Promise<any> {
-  const url = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
-  try {
-    const response = await axios.post(url, {
-      homeMobileCountryCode: 310,
-      homeMobileNetworkCode: 410,
-      radioType: "gsm",
-      carrier: "Vodafone",
-      considerIp: true,
-    });
-
-    return response.data.location; // Return the geolocation (lat, lng)
-  } catch (error) {
-    console.error("Error in geolocation:", error.message);
-    return null; // Return null if there is an error
+    const url = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
+    try {
+      const response = await axios.post(url, {
+        considerIp: true,  // Optional, it will use IP-based geolocation
+      });
+  
+      return response.data.location; // Return the geolocation (lat, lng)
+    } catch (error) {
+      console.error("Error in geolocation:", error.message);
+      return null; // Return null if there is an error
+    }
   }
-}
+  
 
 // Get the city from coordinates
 async function getCityFromCoordinates(lat: number, lng: number): Promise<string | undefined> {
