@@ -1,7 +1,7 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const apiKey = process.env.SECRET_KEY;
+const apiKey = AIzaSyBYUG26lsgFbcXQ8Zp78VXFUnKTrNGq95Q;
 
 // Get the location of the person => gives lat/long
 async function getGeolocation() {

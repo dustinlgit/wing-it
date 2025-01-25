@@ -38,7 +38,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var dotenv = require("dotenv");
-dotenv.config();
+var path_1 = require("path");
+// Load the .env file using resolve to ensure the path is correct
+dotenv.config({ path: (0, path_1.resolve)(__dirname, "../.env") });
 var apiKey = process.env.SECRET_KEY;
 if (!apiKey) {
     throw new Error("API key is missing. Check your .env file.");

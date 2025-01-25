@@ -1,7 +1,9 @@
 import axios from "axios";
 import * as dotenv from "dotenv";
+import { resolve } from "path";
 
-dotenv.config();
+// Load the .env file using resolve to ensure the path is correct
+dotenv.config({ path: resolve(__dirname, "../.env") });
 
 const apiKey = process.env.SECRET_KEY;
 
