@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -29,6 +30,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
                     if (t[2]) _.ops.pop();
                     _.trys.pop(); continue;
+=======
+const axios = require("axios");
+require("dotenv").config();
+
+const apiKey = AIzaSyBYUG26lsgFbcXQ8Zp78VXFUnKTrNGq95Q;
+
+// Get the location of the person => gives lat/long
+async function getGeolocation() {
+    const url = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
+    try {
+        const response = await axios.post(url, {
+            considerIp: true,  // Optional, it will use IP-based geolocation
+        });
+
+        return response.data.location; // Return the geolocation (lat, lng)
+    } catch (error) {
+        console.error("Error in geolocation:", error.message);
+        return null; // Return null if there is an error
+    }
+}
+
+// Get the city from coordinates
+async function getCityFromCoordinates(lat, lng) {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+    try {
+        const response = await axios.get(url);
+
+        const results = response.data.results;
+        if (results.length > 0) {
+            const addressComponents = results[0].address_components;
+
+            for (let component of addressComponents) {
+                if (component.types.includes("locality")) {
+                    return component.long_name;
+                }
+>>>>>>> eb7c286f8e25b6fa5095b9b85ae8e00cae0888db
             }
             op = body.call(thisArg, _);
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
@@ -36,38 +74,55 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = require("axios");
+exports.loadGoogleApiKey = loadGoogleApiKey;
+exports.getLocation = getLocation;
+exports.getCityFromCoordinates = getCityFromCoordinates;
+exports.test = test;
 var dotenv = require("dotenv");
-dotenv.config();
-var apiKey = process.env.SECRET_KEY;
-// Get the location of the person => gives lat/long
-function getGeolocation() {
+var axios_1 = require("axios");
+var path_1 = require("path");
+dotenv.config({ path: (0, path_1.resolve)(__dirname, '../.env') });
+function loadGoogleApiKey() {
+    var apiKey = process.env.SECRET_KEY;
+    if (!apiKey) {
+        throw new Error("API key is missing. Check your .env file.");
+    }
+    return apiKey;
+}
+function getLocation(apiKey) {
     return __awaiter(this, void 0, void 0, function () {
-        var url, response, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var url, response, _a, lat, lng, error_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     url = "https://www.googleapis.com/geolocation/v1/geolocate?key=".concat(apiKey);
-                    _a.label = 1;
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, axios_1.default.post(url, {
-                            considerIp: true, // Optional, it will use IP-based geolocation
-                        })];
+                    _b.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, axios_1.default.post(url, {})];
                 case 2:
-                    response = _a.sent();
-                    return [2 /*return*/, response.data.location]; // Return the geolocation (lat, lng)
+                    response = _b.sent();
+                    if (!response.data || !response.data.location) {
+                        throw new Error("Failed to retrieve location from the API.");
+                    }
+                    _a = response.data.location, lat = _a.lat, lng = _a.lng;
+                    console.log("Location found:", { lat: lat, lng: lng });
+                    return [2 /*return*/, { lat: lat, lng: lng }];
                 case 3:
-                    error_1 = _a.sent();
-                    console.error("Error in geolocation:", error_1.message);
-                    return [2 /*return*/, null]; // Return null if there is an error
+                    error_1 = _b.sent();
+                    if (error_1 instanceof Error) {
+                        console.error("Error fetching location:", error_1.message);
+                    }
+                    else {
+                        console.error("Unexpected error:", error_1);
+                    }
+                    throw error_1;
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-// Get the city from coordinates
-function getCityFromCoordinates(lat, lng) {
+function getCityFromCoordinates(lat, lng, apiKey) {
     return __awaiter(this, void 0, void 0, function () {
         var url, response, results, addressComponents, _i, addressComponents_1, component, error_2;
         return __generator(this, function (_a) {
@@ -90,39 +145,72 @@ function getCityFromCoordinates(lat, lng) {
                             }
                         }
                     }
-                    return [2 /*return*/, "City not found"];
+                    throw new Error("City not found.");
                 case 3:
                     error_2 = _a.sent();
-                    console.error("Error in reverse geocoding:", error_2.message);
-                    return [2 /*return*/, undefined];
+                    if (error_2 instanceof Error) {
+                        console.error("Error fetching city from coordinates:", error_2.message);
+                    }
+                    else {
+                        console.error("Unexpected error:", error_2);
+                    }
+                    throw error_2;
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-//helps you test this out
-function getLocationAndCity() {
+function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var location, lat, lng, city;
+        var apiKey, location_1, city, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, getGeolocation()];
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    apiKey = loadGoogleApiKey();
+                    return [4 /*yield*/, getLocation(apiKey)];
                 case 1:
-                    location = _a.sent();
-                    if (!location) return [3 /*break*/, 3];
-                    lat = location.lat, lng = location.lng;
-                    console.log("Geolocation retrieved: Latitude - ".concat(lat, ", Longitude - ").concat(lng));
-                    return [4 /*yield*/, getCityFromCoordinates(lat, lng)];
+                    location_1 = _a.sent();
+                    return [4 /*yield*/, getCityFromCoordinates(location_1.lat, location_1.lng, apiKey)];
                 case 2:
                     city = _a.sent();
-                    console.log("City:", city);
+                    console.log("Your current location is: Latitude ".concat(location_1.lat, ", Longitude ").concat(location_1.lng));
+                    console.log("City: ".concat(city));
                     return [3 /*break*/, 4];
                 case 3:
-                    console.log("Unable to retrieve location.");
-                    _a.label = 4;
+                    error_3 = _a.sent();
+                    if (error_3 instanceof Error) {
+                        console.error("Error:", error_3.message);
+                    }
+                    else {
+                        console.error("Unexpected error:", error_3);
+                    }
+                    return [3 /*break*/, 4];
                 case 4: return [2 /*return*/];
             }
         });
     });
 }
-getLocationAndCity();
+function test() {
+    return __awaiter(this, void 0, void 0, function () {
+        var apiKey, location, city;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    apiKey = loadGoogleApiKey();
+                    return [4 /*yield*/, getLocation(apiKey)];
+                case 1:
+                    location = _a.sent();
+                    return [4 /*yield*/, getCityFromCoordinates(location.lat, location.lng, apiKey)];
+                case 2:
+                    city = _a.sent();
+                    console.log("Test - Coordinates: Latitude ".concat(location.lat, ", Longitude ").concat(location.lng));
+                    console.log("Test - City: ".concat(city));
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+if (require.main === module) {
+    main();
+}

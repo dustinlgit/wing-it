@@ -38,8 +38,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var dotenv = require("dotenv");
-dotenv.config();
+var path_1 = require("path");
+dotenv.config({ path: (0, path_1.resolve)(__dirname, "../.env") });
 var apiKey = process.env.SECRET_KEY;
+if (!apiKey) {
+    throw new Error("API key is missing. Check your .env file.");
+}
 function sleep(ms) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -67,12 +71,15 @@ function getTop50PopularPlaces(lat, lng, cityName) {
                     return [4 /*yield*/, axios_1.default.get(requestUrl)];
                 case 3:
                     response = _a.sent();
+                    if (!response.data || !response.data.results) {
+                        throw new Error("Failed to fetch places data.");
+                    }
                     places.push.apply(places, response.data.results);
                     nextPageToken = response.data.next_page_token;
                     if (!nextPageToken) return [3 /*break*/, 5];
                     return [4 /*yield*/, sleep(2000)];
                 case 4:
-                    _a.sent();
+                    _a.sent(); // Google API requires a delay before using next_page_token
                     _a.label = 5;
                 case 5:
                     if (nextPageToken && places.length < 50) return [3 /*break*/, 2];
@@ -80,7 +87,7 @@ function getTop50PopularPlaces(lat, lng, cityName) {
                 case 6:
                     top50Places = places
                         .filter(function (place) { return !place.name.toLowerCase().includes(cityName.toLowerCase()); })
-                        .sort(function (a, b) { return b.rating - a.rating; })
+                        .sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); })
                         .slice(0, 50);
                     popularPlaces = {};
                     i = 0;
@@ -92,11 +99,14 @@ function getTop50PopularPlaces(lat, lng, cityName) {
                     return [4 /*yield*/, axios_1.default.get(detailsUrl)];
                 case 8:
                     detailsResponse = _a.sent();
+                    if (!detailsResponse.data || !detailsResponse.data.result) {
+                        throw new Error("Failed to fetch details for place ID: ".concat(place.place_id));
+                    }
                     placeDetails = detailsResponse.data.result;
                     description = (placeDetails === null || placeDetails === void 0 ? void 0 : placeDetails.overview) || "No description available";
                     popularPlaces["Place ".concat(i + 1)] = {
                         name: place.name,
-                        rating: place.rating,
+                        rating: place.rating || 0,
                         description: description,
                     };
                     _a.label = 9;
@@ -106,13 +116,19 @@ function getTop50PopularPlaces(lat, lng, cityName) {
                 case 10: return [2 /*return*/, popularPlaces];
                 case 11:
                     error_1 = _a.sent();
-                    console.error("Error getting places:", error_1.message);
+                    if (error_1 instanceof Error) {
+                        console.error("Error getting places:", error_1.message);
+                    }
+                    else {
+                        console.error("Unexpected error:", error_1);
+                    }
                     return [2 /*return*/, {}];
                 case 12: return [2 /*return*/];
             }
         });
     });
 }
+// Example usage
 getTop50PopularPlaces(40.7128, -74.0060, "New York").then(function (places) {
     console.log(places);
 });
