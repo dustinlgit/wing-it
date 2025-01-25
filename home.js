@@ -57,7 +57,7 @@ function reorderStack() {
     cards.forEach((card, index) => {
         if (index < 3) {
             card.style.display = "block";
-            card.style.transform = `translateY(${-index * 42}px) scale(${1 - index * 0.05})`;
+            card.style.transform = `translateY(${-index * 32}px) scale(${1 - index * 0.05})`;
             card.style.opacity = `${1 - index * 0.3}`;
             card.style.zIndex = `${3 - index}`;
         } else {
