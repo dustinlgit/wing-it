@@ -1,6 +1,0 @@
-.env
-package-lock.json
-package.jsonts.config
-package.json
-tsconfig.json
-node_modules/
