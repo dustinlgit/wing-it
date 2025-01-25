@@ -1,9 +1,66 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
+    font-family: 'Funnel Display', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
 }
-h1 {
-    color: blue;
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+.card {
+    width: 300px;
+    height: 400px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+.card h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.card p {
+    font-size: 1rem;
+    color: #555;
+}
+.card.swipe-right {
+    transform: translateX(500px) rotate(15deg);
+    opacity: 0;
+}
+
+.card.swipe-left {
+    transform: translateX(-500px) rotate(-15deg);
+    opacity: 0;
+}
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+.btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: white;
+}
+.btn-like {
+    background-color: #4CAF50;
+}
+.btn-dislike {
+    background-color: #f44336;
 }
