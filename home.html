@@ -8,12 +8,19 @@
 </head>
 <body>
 <div class="container">
-    <button class="btn btn-dislike" onclick="dislike()">&#10060;</button>
+    <button class="btn btn-dislike" onclick="dislike()">
+        <img src="images/x.svg" alt="dislike">
+    </button>
     <div class="card" id="placeCard">
-        <h2 id="placeName">Eiffel Tower</h2>
-        <p id="placeDescription">An iconic Paris landmark offering stunning views.</p>
+        <img src="https://lh3.googleusercontent.com/places/ANXAkqH5J_xFlIsrt7KqhjKAIhEtkD6Tadw8tT9C207ZXn7SE0jdfpeu5MaAarbGi7eJo8JTXyesv1byRbC9SSTf0fHWuBO57vRzh50=s1600-w800" alt="New York City">
+        <div class="text-overlay">
+            <h2 id="placeName">Eiffel Tower</h2>
+            <p id="placeDescription">An iconic Paris landmark offering stunning views.</p>
+        </div>
     </div>
-    <button class="btn btn-like" onclick="like()">&#9989;</button>
+    <button class="btn btn-like" onclick="like()">
+        <img src="images/check.svg" alt="like">
+    </button>
 </div>
 <script src="home.js"></script>
 </body>
