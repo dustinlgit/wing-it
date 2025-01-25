@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 dotenv.config({ path: resolve(__dirname, '../.env') });
 
 function loadGoogleApiKey(): string {
-    const GAPIKey = process.env.SECRET_KEY;
+    const GAPIKey = process.env.GOOGLE_MAP_KEY;
     if (!GAPIKey)
         throw new Error('API key is missing. Check your .env file.');
     return GAPIKey;
@@ -41,3 +41,19 @@ async function fetchCityPictureUrl(apiKey: string, cityName: string): Promise<st
         throw error;
     }
 }
+
+
+
+(async () => {
+    const key: string = loadGoogleApiKey();
+    try {
+        const photoUrl = await fetchCityPictureUrl(key, "New York");
+        console.log(photoUrl);
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error("Error:", error.message);
+        } else {
+            console.error("Unexpected error:", error);
+        }
+    }
+})();
