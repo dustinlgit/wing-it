@@ -84,27 +84,15 @@ function fetchCityPictureUrl(cityName) {
         });
     });
 }
-(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var photoUrl, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, fetchCityPictureUrl("New York")];
-            case 1:
-                photoUrl = _a.sent();
-                console.log(photoUrl);
-                return [3 /*break*/, 3];
-            case 2:
-                error_2 = _a.sent();
-                if (error_2 instanceof Error) {
-                    console.error("Error:", error_2.message);
-                }
-                else {
-                    console.error("Unexpected error:", error_2);
-                }
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); })();
+// (async () => {
+//     try {
+//         const photoUrl = await fetchCityPictureUrl("New York");
+//         console.log(photoUrl);
+//     } catch (error) {
+//         if (error instanceof Error) {
+//             console.error("Error:", error.message);
+//         } else {
+//             console.error("Unexpected error:", error);
+//         }
+//     }
+// })();

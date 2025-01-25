@@ -41,15 +41,15 @@ export async function fetchCityPictureUrl(cityName: string): Promise<string> {
     }
 }
 
-(async () => {
-    try {
-        const photoUrl = await fetchCityPictureUrl("New York");
-        console.log(photoUrl);
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error("Error:", error.message);
-        } else {
-            console.error("Unexpected error:", error);
-        }
-    }
-})();
+// (async () => {
+//     try {
+//         const photoUrl = await fetchCityPictureUrl("New York");
+//         console.log(photoUrl);
+//     } catch (error) {
+//         if (error instanceof Error) {
+//             console.error("Error:", error.message);
+//         } else {
+//             console.error("Unexpected error:", error);
+//         }
+//     }
+// })();
