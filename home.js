@@ -1,4 +1,4 @@
-// const { generateBasedOnLocation } = require('./src/generateBy');
+// import { generateBasedOnLocation } from './src/generateBy';
 
 // const p = generateBasedOnLocation();
 
