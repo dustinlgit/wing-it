@@ -1,9 +1,184 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
+    font-family: 'Funnel Display', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding-top: 80px; /* Adjust based on header height */
 }
-h1 {
-    color: blue;
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-grow: 1;
+    padding-top: 20px; /* Add extra padding to balance spacing */
+    overflow: hidden;
+    position: relative;
+    max-width: 100%;
+}
+.card-stack {
+    position: relative;
+    width: 512px;
+    height: 684px;
+}
+.card {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Arrange cards to peek from the top and decrease opacity */
+.card:nth-child(1) {
+    z-index: 3;
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+}
+.card:nth-child(2) {
+    z-index: 2;
+    transform: translateY(-30px) scale(0.95);
+    opacity: 0.7;
+}
+.card:nth-child(3) {
+    z-index: 1;
+    transform: translateY(-60px) scale(0.9);
+    opacity: 0.4;
+}
+.card:nth-child(4) {
+    z-index: 0;
+    transform: translateY(-90px) scale(0.85);
+    opacity: 0;
+}
+.card:nth-child(n+5) {
+    display: none;
+}
+
+/* Swiping effects */
+.card.swipe-right {
+    transform: translateX(500px) rotate(15deg);
+    opacity: 0;
+}
+.card.swipe-left {
+    transform: translateX(-500px) rotate(-15deg);
+    opacity: 0;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.text-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    color: white;
+    z-index: 1;
+}
+
+.text-overlay h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    font-family: 'Funnel Display', sans-serif;
+}
+
+.text-overlay p {
+    font-size: 1rem;
+    margin: 5px 0 0;
+    color: #f0f0f0;
+    font-family: 'Funnel Display', sans-serif;
+}
+.card h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.card p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+.btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: transparent; /* Remove any background color if necessary */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    overflow: hidden; /* Ensures the image stays inside the circle */
+}
+.btn img {
+    width: 60%; /* Adjust size relative to button */
+    height: 60%;
+    object-fit: contain; /* Ensures the image scales properly */
+}
+.btn-like {
+    background-color: #4CAF50;
+}
+.btn-dislike {
+    background-color: #f44336;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 50px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1; /* Centers the text by pushing items apart */
+    color: #333;
+}
+
+.profile-btn {
+    color: #4e4e4e;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.profile-btn img {
+    width: 40px;
+    height: 40px;
+    color: inherit; /* Ensure the icon uses the correct color */
+    display: block;
 }
