@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <title>Wing It</title>
     <link rel="stylesheet" href="home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Wing It</h1>
+<div class="container">
+    <button class="btn btn-dislike" onclick="dislike()">&#10060;</button>
+    <div class="card" id="placeCard">
+        <h2 id="placeName">Eiffel Tower</h2>
+        <p id="placeDescription">An iconic Paris landmark offering stunning views.</p>
+    </div>
+    <button class="btn btn-like" onclick="like()">&#9989;</button>
+</div>
+<script src="home.js"></script>
 </body>
 </html>
