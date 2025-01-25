@@ -48,6 +48,7 @@ async function getCityFromCoordinates(lat: number, lng: number): Promise<string 
   }
 }
 
+//helps you test this out
 async function getLocationAndCity() {
   const location = await getGeolocation();
   
