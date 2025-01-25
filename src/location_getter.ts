@@ -88,4 +88,4 @@ async function main() {
 //   main();
 // }
 
-export { loadGoogleApiKey, getLocation, getCityFromCoordinates, test };
+export { loadGoogleApiKey, getLocation, getCityFromCoordinates };

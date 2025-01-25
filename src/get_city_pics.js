@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchCityPictureUrl = fetchCityPictureUrl;
 var dotenv = require("dotenv");
 var path_1 = require("path");
 var axios_1 = require("axios");

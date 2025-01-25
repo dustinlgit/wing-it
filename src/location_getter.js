@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.test = void 0;
 exports.loadGoogleApiKey = loadGoogleApiKey;
 exports.getLocation = getLocation;
 exports.getCityFromCoordinates = getCityFromCoordinates;
