@@ -12,7 +12,8 @@ function loadGoogleApiKey(): string {
   return apiKey;
 }
 
-async function getLocation(apiKey: string): Promise<{ lat: number; lng: number }> {
+async function getLocation(): Promise<{ lat: number; lng: number }> {
+    const apiKey = loadGoogleApiKey();
     const url = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
   
     try {
@@ -33,7 +34,8 @@ async function getLocation(apiKey: string): Promise<{ lat: number; lng: number }
     }
 }
 
-async function getCityFromCoordinates(lat: number, lng: number, apiKey: string): Promise<string> {
+async function getCityFromCoordinates(lat: number, lng: number): Promise<string> {
+  const apiKey = loadGoogleApiKey();
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
   
   try {
@@ -61,9 +63,8 @@ async function getCityFromCoordinates(lat: number, lng: number, apiKey: string):
 
 async function main() {
   try {
-    const apiKey = loadGoogleApiKey();
-    const location = await getLocation(apiKey);
-    const city = await getCityFromCoordinates(location.lat, location.lng, apiKey);
+    const location = await getLocation();
+    const city = await getCityFromCoordinates(location.lat, location.lng);
     console.log(`Your current location is: Latitude ${location.lat}, Longitude ${location.lng}`);
     console.log(`City: ${city}`);
   } catch (error) {

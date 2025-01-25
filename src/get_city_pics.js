@@ -46,13 +46,14 @@ function loadGoogleApiKey() {
         throw new Error('API key is missing. Check your .env file.');
     return GAPIKey;
 }
-function fetchCityPictureUrl(apiKey, cityName) {
+function fetchCityPictureUrl(cityName) {
     return __awaiter(this, void 0, void 0, function () {
-        var searchUrl, searchResponse, searchData, placeId, detailsUrl, detailsResponse, detailsData, photoReference, photoUrl, error_1;
+        var key, searchUrl, searchResponse, searchData, placeId, detailsUrl, detailsResponse, detailsData, photoReference, photoUrl, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".concat(encodeURIComponent(cityName), "&key=").concat(apiKey);
+                    key = loadGoogleApiKey();
+                    searchUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".concat(encodeURIComponent(cityName), "&key=").concat(key);
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
@@ -63,7 +64,7 @@ function fetchCityPictureUrl(apiKey, cityName) {
                     if (!searchData.results || searchData.results.length === 0)
                         throw new Error("No results found for the city: ".concat(cityName));
                     placeId = searchData.results[0].place_id;
-                    detailsUrl = "https://maps.googleapis.com/maps/api/place/details/json?place_id=".concat(placeId, "&fields=photos&key=").concat(apiKey);
+                    detailsUrl = "https://maps.googleapis.com/maps/api/place/details/json?place_id=".concat(placeId, "&fields=photos&key=").concat(key);
                     return [4 /*yield*/, axios_1.default.get(detailsUrl)];
                 case 3:
                     detailsResponse = _a.sent();
@@ -71,7 +72,7 @@ function fetchCityPictureUrl(apiKey, cityName) {
                     if (!detailsData.result.photos || detailsData.result.photos.length === 0)
                         throw new Error("No photos available for the city: ".concat(cityName));
                     photoReference = detailsData.result.photos[0].photo_reference;
-                    photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=".concat(photoReference, "&key=").concat(apiKey);
+                    photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=".concat(photoReference, "&key=").concat(key);
                     return [2 /*return*/, photoUrl];
                 case 4:
                     error_1 = _a.sent();
@@ -83,20 +84,17 @@ function fetchCityPictureUrl(apiKey, cityName) {
     });
 }
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var key, photoUrl, error_2;
+    var photoUrl, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                key = loadGoogleApiKey();
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, fetchCityPictureUrl("New York")];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, fetchCityPictureUrl(key, "New York")];
-            case 2:
                 photoUrl = _a.sent();
                 console.log(photoUrl);
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 error_2 = _a.sent();
                 if (error_2 instanceof Error) {
                     console.error("Error:", error_2.message);
@@ -104,8 +102,8 @@ function fetchCityPictureUrl(apiKey, cityName) {
                 else {
                     console.error("Unexpected error:", error_2);
                 }
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); })();

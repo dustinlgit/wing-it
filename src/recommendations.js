@@ -79,7 +79,7 @@ function getTop50PopularPlaces(lat, lng, cityName) {
                     if (!nextPageToken) return [3 /*break*/, 5];
                     return [4 /*yield*/, sleep(2000)];
                 case 4:
-                    _a.sent(); // Google API requires a delay before using next_page_token
+                    _a.sent();
                     _a.label = 5;
                 case 5:
                     if (nextPageToken && places.length < 50) return [3 /*break*/, 2];

@@ -11,28 +11,27 @@ function loadGoogleApiKey(): string {
     return GAPIKey;
 }
 
-async function fetchCityPictureUrl(apiKey: string, cityName: string): Promise<string> {
-    const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(cityName)}&key=${apiKey}`;
+async function fetchCityPictureUrl(cityName: string): Promise<string> {\
+    const key: string = loadGoogleApiKey();
+    const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(cityName)}&key=${key}`;
 
     try {
-        // Using axios instead of fetch
         const searchResponse = await axios.get(searchUrl);
-        const searchData = searchResponse.data; // Axios gives data directly in the response
-
+        const searchData = searchResponse.data; 
         if (!searchData.results || searchData.results.length === 0)
             throw new Error(`No results found for the city: ${cityName}`);
 
         const placeId = searchData.results[0].place_id;
 
-        const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photos&key=${apiKey}`;
+        const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photos&key=${key}`;
         const detailsResponse = await axios.get(detailsUrl);
-        const detailsData = detailsResponse.data; // Axios gives data directly in the response
+        const detailsData = detailsResponse.data; 
 
         if (!detailsData.result.photos || detailsData.result.photos.length === 0)
             throw new Error(`No photos available for the city: ${cityName}`);
 
         const photoReference = detailsData.result.photos[0].photo_reference;
-        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${photoReference}&key=${apiKey}`;
+        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${photoReference}&key=${key}`;
         
         return photoUrl;
 
@@ -43,9 +42,8 @@ async function fetchCityPictureUrl(apiKey: string, cityName: string): Promise<st
 }
 
 (async () => {
-    const key: string = loadGoogleApiKey();
     try {
-        const photoUrl = await fetchCityPictureUrl(key, "New York");
+        const photoUrl = await fetchCityPictureUrl("New York");
         console.log(photoUrl);
     } catch (error) {
         if (error instanceof Error) {
