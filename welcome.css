@@ -1,0 +1,128 @@
+
+body {
+    margin: 0;
+    font-family: 'Funnel Display', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #4edbff, #ffffff);
+    color: #333;
+    overflow: hidden;
+}
+
+.top-nav {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.top-nav a:hover {
+    background-color: #007BFF;
+    color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-container h1 {
+    margin: 0;
+    font-size: 6rem;
+    color: #333;
+    font-weight: bold;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover h1 {
+    transform: scale(1.2);
+}
+
+.logo-container .slogan {
+    font-size: 2.4rem;
+    color: #0051aa;
+    font-weight: 300;
+    margin-top: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.plane {
+    position: absolute;
+    width: 80px;
+    height: auto;
+    bottom: 50%;
+    left: -100px;
+    transform: translateY(50%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+@keyframes flyRight {
+    0% {
+        left: -100px;
+        opacity: 1;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+.logo-container:hover ~ .plane {
+    animation: flyRight 3s linear;
+    opacity: 1;
+}
+
+.start-button-container {
+    position: absolute;
+    bottom: 50px;
+    text-align: center;
+}
+
+.start-button {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #050505;
+    background-color: #42f804;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.start-button:hover {
+    background-color: #0056b3;
+    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
