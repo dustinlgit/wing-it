@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var dotenv = require("dotenv");
 dotenv.config();
-var apiKey = process.env.API_KEY;
+var apiKey = process.env.SECRET_KEY;
 function sleep(ms) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -70,11 +70,9 @@ function getTop50PopularPlaces(lat, lng, cityName) {
                     places.push.apply(places, response.data.results);
                     nextPageToken = response.data.next_page_token;
                     if (!nextPageToken) return [3 /*break*/, 5];
-                    // Wait for a while before requesting the next page
                     return [4 /*yield*/, sleep(2000)];
                 case 4:
-                    // Wait for a while before requesting the next page
-                    _a.sent(); // 2 seconds delay to ensure the next page is ready
+                    _a.sent();
                     _a.label = 5;
                 case 5:
                     if (nextPageToken && places.length < 50) return [3 /*break*/, 2];

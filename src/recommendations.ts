@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const apiKey = process.env.API_KEY;
+const apiKey = process.env.SECRET_KEY;
 
 async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
