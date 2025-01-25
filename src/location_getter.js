@@ -36,10 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.test = void 0;
 exports.loadGoogleApiKey = loadGoogleApiKey;
 exports.getLocation = getLocation;
 exports.getCityFromCoordinates = getCityFromCoordinates;
-exports.test = test;
 var dotenv = require("dotenv");
 var axios_1 = require("axios");
 var path_1 = require("path");
@@ -69,7 +69,7 @@ function getLocation() {
                         throw new Error("Failed to retrieve location from the API.");
                     }
                     _a = response.data.location, lat = _a.lat, lng = _a.lng;
-                    console.log("Location found:", { lat: lat, lng: lng });
+                    // console.log("Location found:", { lat, lng });
                     return [2 /*return*/, { lat: lat, lng: lng }];
                 case 3:
                     error_1 = _b.sent();
@@ -153,27 +153,4 @@ function main() {
             }
         });
     });
-}
-function test() {
-    return __awaiter(this, void 0, void 0, function () {
-        var apiKey, location, city;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    apiKey = loadGoogleApiKey();
-                    return [4 /*yield*/, getLocation(apiKey)];
-                case 1:
-                    location = _a.sent();
-                    return [4 /*yield*/, getCityFromCoordinates(location.lat, location.lng, apiKey)];
-                case 2:
-                    city = _a.sent();
-                    console.log("Test - Coordinates: Latitude ".concat(location.lat, ", Longitude ").concat(location.lng));
-                    console.log("Test - City: ".concat(city));
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
-if (require.main === module) {
-    main();
 }

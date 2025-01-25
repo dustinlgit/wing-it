@@ -22,7 +22,7 @@ async function getLocation(): Promise<{ lat: number; lng: number }> {
         throw new Error("Failed to retrieve location from the API.");
       }
       const { lat, lng } = response.data.location;
-      console.log("Location found:", { lat, lng });
+      // console.log("Location found:", { lat, lng });
       return { lat, lng };
     } catch (error) {
       if (error instanceof Error) {
@@ -76,17 +76,16 @@ async function main() {
   }
 }
 
-async function test() {
-  const apiKey = loadGoogleApiKey();
-  const location = await getLocation(apiKey);
-  const city = await getCityFromCoordinates(location.lat, location.lng, apiKey);
+// async function test() {
+//   const location = await getLocation();
+//   const city = await getCityFromCoordinates(location.lat, location.lng);
 
-  console.log(`Test - Coordinates: Latitude ${location.lat}, Longitude ${location.lng}`);
-  console.log(`Test - City: ${city}`);
-}
+//   console.log(`Test - Coordinates: Latitude ${location.lat}, Longitude ${location.lng}`);
+//   console.log(`Test - City: ${city}`);
+// }
 
-if (require.main === module) {
-  main();
-}
+// if (require.main === module) {
+//   main();
+// }
 
 export { loadGoogleApiKey, getLocation, getCityFromCoordinates, test };
