@@ -13,21 +13,57 @@ body {
     justify-content: center;
     gap: 50px;
 }
-
+.card-stack {
+    position: relative;
+    width: 512px;
+    height: 716px;
+}
 
 .card {
-    width: 400px;
-    height: 500px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    position: relative;
     overflow: hidden;
     text-align: left;
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+}
+
+/* Arrange cards to peek from the top and decrease opacity */
+.card:nth-child(1) {
+    z-index: 3;
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+}
+.card:nth-child(2) {
+    z-index: 2;
+    transform: translateY(-30px) scale(0.95);
+    opacity: 0.7;
+}
+.card:nth-child(3) {
+    z-index: 1;
+    transform: translateY(-60px) scale(0.9);
+    opacity: 0.4;
+}
+.card:nth-child(n+4) {
+    display: none;
+}
+
+/* Swiping effects */
+.card.swipe-right {
+    transform: translateX(500px) rotate(15deg);
+    opacity: 0;
+}
+.card.swipe-left {
+    transform: translateX(-500px) rotate(-15deg);
+    opacity: 0;
 }
 
 .card img {
@@ -71,15 +107,6 @@ body {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.75);
 }
-.card.swipe-right {
-    transform: translateX(500px) rotate(15deg);
-    opacity: 0;
-}
-
-.card.swipe-left {
-    transform: translateX(-500px) rotate(-15deg);
-    opacity: 0;
-}
 .buttons {
     display: flex;
     justify-content: space-around;
@@ -99,7 +126,6 @@ body {
     padding: 0;
     overflow: hidden; /* Ensures the image stays inside the circle */
 }
-
 .btn img {
     width: 60%; /* Adjust size relative to button */
     height: 60%;
