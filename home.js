@@ -48,32 +48,28 @@ function processSwipe(direction) {
         // Start swipe animation
         topCard.classList.add(direction);
 
-        // Allow swipe animation before reordering stack
-        setTimeout(() => {
-            reorderStack();
-        }, 100);
 
-        // Remove card after transition completes
+        // Remove the card after its animation completes
         topCard.addEventListener('transitionend', () => {
             topCard.remove();
-        }, { once: true }); // Ensure the event is triggered only once
+            reorderStack();
+        }, { once: true });
     } else {
         cardStack.innerHTML = "<h2>No more places!</h2>";
     }
 }
 
 function reorderStack() {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach((card, index) => {
-        card.style.transition = "transform 0.5s ease-out, opacity 0.5s ease-out";  // Smooth transition
-        card.style.transform = `translateY(${-index * 30}px) scale(${1 - index * 0.05})`;
-        card.style.opacity = index === 3 ? '0' : `${1 - index * 0.3}`;
-        card.style.zIndex = `${3 - index}`;
+    setTimeout(() => {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.transition = "transform 0.3s ease-out, opacity 0.3s ease-out";
+            card.style.transform = `translateY(${-index * 32}px) scale(${1 - index * 0.05})`;
+            card.style.opacity = index === 3 ? '0' : `${1 - index * 0.3}`;
+            card.style.zIndex = `${3 - index}`;
+        });
     });
 }
-
-// Load cards when page is ready
-document.addEventListener('DOMContentLoaded', loadCards);
 
 document.querySelector('.btn-like').addEventListener('click', () => {
     console.log("Like button clicked");
@@ -87,10 +83,5 @@ document.querySelector('.btn-dislike').addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadCards();
-
-    // Add a slight delay to ensure DOM is fully updated before animation
-    setTimeout(() => {
-        reorderStack();
-        document.getElementById('cardStack').classList.add('animate');
-    }, 300);
+    reorderStack();
 });

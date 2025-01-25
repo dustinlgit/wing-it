@@ -40,7 +40,7 @@ body {
     justify-content: flex-end;
     overflow: hidden;
     text-align: left;
-    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
 /* Arrange cards to peek from the top and decrease opacity */
 .card:nth-child(1) {
@@ -70,9 +70,9 @@ body {
 /* Swiping effects */
 .card.swipe-right,
 .card.swipe-left {
-    position: absolute !important;
-    left: 0 !important;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out !important;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .card.swipe-right {
