@@ -89,12 +89,12 @@ function extractPlaces(results) {
 }
 
 async function getPlaceDescription(placeName) {
-  const EDEN_AI_KEY = loadEnvVariable("EDEN_AI_KEY"); // Load API Key
-  const EDEN_WORKFLOW_ID = loadEnvVariable("EDEN_WORKFLOW_ID"); // Workflow ID
-  const url = `https://api.edenai.run/v2/workflow/${EDEN_WORKFLOW_ID}/execution/`; // Launch workflow URL
+  const EDEN_AI_KEY = loadEnvVariable("EDEN_AI_KEY");
+  const EDEN_WORKFLOW_ID = loadEnvVariable("EDEN_WORKFLOW_ID");
+  const url = `https://api.edenai.run/v2/workflow/${EDEN_WORKFLOW_ID}/execution/`;
 
   const payload = {
-    prompt: `Give a description about ${placeName} in less than 12 words.`,
+    prompt: `Provide a short description (around 20 words) of ${placeName} for tourists. Highlight its key attractions and activities.`,
   };
 
   console.log(`Launching workflow for place description: ${placeName}`);
@@ -113,10 +113,8 @@ async function getPlaceDescription(placeName) {
     console.log("Workflow Launch Response:", launchResponse.data);
     const workflowExecutionId = launchResponse.data.id;
 
-    // Step 2: Poll for workflow results
     const results = await pollWorkflowResults(workflowExecutionId);
 
-    // Step 3: Extract the description from results
     const generatedText =
       results.output.results[0]?.generated_text ||
       results.text__chat.results[0]?.generated_text;
@@ -126,9 +124,8 @@ async function getPlaceDescription(placeName) {
     }
 
     console.log(`Description for ${placeName}: ${generatedText}`);
-    return generatedText.trim(); // Return the description
+    return generatedText.trim();
   } catch (error) {
-    // Log the error details for debugging
     console.error("Error requesting description:", error.response?.data || error.message);
     throw error;
   }
@@ -150,7 +147,6 @@ async function main() {
 
     console.log("SECOND TEST for get DESCRIPTION");
 
-    // Test the getPlaceDescription function with a hardcoded place
     const testPlace = "Irvine";
     console.log(`Testing getPlaceDescription for: ${testPlace}`);
     const description = await getPlaceDescription(testPlace);
