@@ -11,7 +11,7 @@ function loadGoogleApiKey(): string {
     return GAPIKey;
 }
 
-async function fetchCityPictureUrl(cityName: string): Promise<string> {\
+async function fetchCityPictureUrl(cityName: string): Promise<string> {
     const key: string = loadGoogleApiKey();
     const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(cityName)}&key=${key}`;
 

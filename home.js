@@ -11,7 +11,7 @@ const places = [
 // Load cards dynamically into the stack
 function loadCards() {
     const cardStack = document.getElementById('cardStack');
-    cardStack.innerHTML = ''; // Clear stack before loading
+    cardStack.innerHTML = ''; 
     places.forEach((place) => {
         const card = document.createElement('div');
         card.classList.add('card');

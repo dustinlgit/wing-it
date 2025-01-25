@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axiom": "^0.1.6",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "node-fetch": "^3.3.2"
