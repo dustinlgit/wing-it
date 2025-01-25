@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -29,6 +30,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
                     if (t[2]) _.ops.pop();
                     _.trys.pop(); continue;
+=======
+const axios = require("axios");
+require("dotenv").config();
+
+const apiKey = AIzaSyBYUG26lsgFbcXQ8Zp78VXFUnKTrNGq95Q;
+
+// Get the location of the person => gives lat/long
+async function getGeolocation() {
+    const url = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
+    try {
+        const response = await axios.post(url, {
+            considerIp: true,  // Optional, it will use IP-based geolocation
+        });
+
+        return response.data.location; // Return the geolocation (lat, lng)
+    } catch (error) {
+        console.error("Error in geolocation:", error.message);
+        return null; // Return null if there is an error
+    }
+}
+
+// Get the city from coordinates
+async function getCityFromCoordinates(lat, lng) {
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+    try {
+        const response = await axios.get(url);
+
+        const results = response.data.results;
+        if (results.length > 0) {
+            const addressComponents = results[0].address_components;
+
+            for (let component of addressComponents) {
+                if (component.types.includes("locality")) {
+                    return component.long_name;
+                }
+>>>>>>> eb7c286f8e25b6fa5095b9b85ae8e00cae0888db
             }
             op = body.call(thisArg, _);
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }

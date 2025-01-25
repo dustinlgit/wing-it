@@ -41,7 +41,11 @@ async function getTop50PopularPlaces(
       nextPageToken = response.data.next_page_token;
 
       if (nextPageToken) {
+<<<<<<< HEAD
         await sleep(2000);
+=======
+        await sleep(2000); // Google API requires a delay before using next_page_token
+>>>>>>> eb7c286f8e25b6fa5095b9b85ae8e00cae0888db
       }
 
     } while (nextPageToken && places.length < 50);
@@ -84,6 +88,7 @@ async function getTop50PopularPlaces(
   }
 }
 
+// Example usage
 getTop50PopularPlaces(40.7128, -74.0060, "New York").then((places) => {
   console.log(places);
 });
