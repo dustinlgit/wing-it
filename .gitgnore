@@ -2,4 +2,5 @@
 package-lock.json
 package.jsonts.config
 package.json
-tsconfig.jsonx
+tsconfig.json
+node_modules/
