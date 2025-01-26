@@ -2,6 +2,7 @@ import axios from "axios";
 import "dotenv";
 
 import { fetchCityPictureUrl } from "./get_city_pics";
+import { getPlaceDescription } from "./ai_recommendations";
 
 const apiKey = import.meta.env.VITE_SECRET_KEY;
 
@@ -24,7 +25,6 @@ async function getTop50PopularPlaces(
     const places: any[] = [];
     let nextPageToken: string | undefined = undefined;
 
-    // Loop through pages of results
     do {
       const requestUrl = nextPageToken
         ? `${url}&pagetoken=${nextPageToken}`
@@ -45,13 +45,13 @@ async function getTop50PopularPlaces(
         await sleep(2000); // Delay for 2 seconds to wait for the next page token to become active
       }
 
-    } while (nextPageToken && places.length < 10);
+    } while (nextPageToken && places.length < 30);
 
     // Filter and sort the places
     const top50Places = places
       .filter((place: any) => !place.name.toLowerCase().includes(cityName.toLowerCase()))
       .sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0))
-      .slice(0, 10);
+      .slice(0, 50);
 
     // Initialize the array to hold the results
     const popularPlaces: { name: string; description: string; image: string }[] = [];
@@ -60,15 +60,17 @@ async function getTop50PopularPlaces(
     for (let i = 0; i < top50Places.length; i++) {
       const place = top50Places[i];
 
-      const detailsUrl = `/api/maps/api/place/details/json?place_id=${place.place_id}&key=${apiKey}`;
-      const detailsResponse = await axios.get(detailsUrl);
+      // const detailsUrl = `/api/maps/api/place/details/json?place_id=${place.place_id}&key=${apiKey}`;
+      // const detailsResponse = await axios.get(detailsUrl);
 
-      if (!detailsResponse.data || !detailsResponse.data.result) {
-        throw new Error(`Failed to fetch details for place ID: ${place.place_id}`);
-      }
+      // if (!detailsResponse.data || !detailsResponse.data.result) {
+      //   throw new Error(`Failed to fetch details for place ID: ${place.place_id}`);
+      // }
 
-      const placeDetails = detailsResponse.data.result;
-      const description = placeDetails?.overview || "No description available";
+      // const placeDetails = detailsResponse.data.result;
+
+      // const description = placeDetails?.overview || "No description available";
+      const description = await getPlaceDescription(place.name);
 
       const image = await fetchCityPictureUrl(place.name); 
 
