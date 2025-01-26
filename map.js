@@ -4,7 +4,7 @@ let currentPosition = null;
 
 function initMap() {
     const mapOptions = {
-        center: { lat: 33.6584317, lng: -117.8457841 }, // Initial center (UCI)
+        center: { lat: 33.6584317, lng: -117.8457841 }, // starts at UCI
         zoom: 12,
     };
 
@@ -18,15 +18,14 @@ function initMap() {
     });
 
     marker.addListener("dragend", function() {
-        const position = marker.getPosition(); // Get the new position from the marker
+        const position = marker.getPosition();
         currentPosition = {
             lat: position.lat(),
             lng: position.lng(),
         };
         console.log(`New Position: Lat: ${currentPosition.lat}, Lng: ${currentPosition.lng}`);
 
-        // Call getCurrentPosition() after the drag ends to log the new position
-        const currentPos = getCurrentPosition(); // Fetch the current position
+        const currentPos = getCurrentPosition(); 
         if (currentPos) {
             console.log("Marker's current position:", currentPos);
         } else {
@@ -35,7 +34,7 @@ function initMap() {
     });
 }
 
-function getCurrentPosition() {
+export function getCurrentPosition() {
     if (currentPosition) {
         return currentPosition;
     } else {
