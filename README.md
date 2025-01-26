@@ -13,16 +13,17 @@ Go to the map and choose a city to get a list of highly rated destinations. Keep
 ## 🎥 Demo
 Watch the video demo below:
 
-[![Video Thumbnail](path-to-image2.png)](https://youtu.be/tZQ1GTPlC9M)) <!-- Clicking the image will open the video -->
+[![Video Thumbnail](path-to-image2.png)][(https://youtu.be/tZQ1GTPlC9M)] <!-- Clicking the image will open the video -->
 
 ## 🖼 Screenshots
 Here are some visuals of the project in action:
 
 ### Screenshot 1
-![Screenshot 1](path-to-screenshot1.png)
+![image](https://github.com/user-attachments/assets/85ccbcbe-8551-4ad2-8161-aa5e774f6a93)
 
 ### Screenshot 2
-![Screenshot 2](path-to-screenshot2.png)
+![image](https://github.com/user-attachments/assets/cd128d3a-fea1-438c-8497-9d1feb6748a8)
+
 
 ## 🚀 Getting Started
 1. Clone the repository:
