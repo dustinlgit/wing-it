@@ -1,9 +1,10 @@
 let map;
 let marker;
+let currentPosition = null;
 
 function initMap() {
     const mapOptions = {
-        center: { lat:33.6584317, lng: -117.8457841 }, // uci at thge room thing
+        center: { lat: 33.6584317, lng: -117.8457841 }, // Initial center (UCI)
         zoom: 12,
     };
 
@@ -13,16 +14,34 @@ function initMap() {
         position: map.getCenter(),
         map: map,
         title: "Drag me!",
-        draggable: true, 
+        draggable: true,
     });
 
     marker.addListener("dragend", function() {
-        const position = marker.getPosition();
-        const lat = position.lat();
-        const lng = position.lng();
-        console.log(`New Position: Lat: ${lat}, Lng: ${lng}`);
-        alert(`New Position: Lat: ${lat}, Lng: ${lng}`);
+        const position = marker.getPosition(); // Get the new position from the marker
+        currentPosition = {
+            lat: position.lat(),
+            lng: position.lng(),
+        };
+        console.log(`New Position: Lat: ${currentPosition.lat}, Lng: ${currentPosition.lng}`);
+
+        // Call getCurrentPosition() after the drag ends to log the new position
+        const currentPos = getCurrentPosition(); // Fetch the current position
+        if (currentPos) {
+            console.log("Marker's current position:", currentPos);
+        } else {
+            console.log("Position is not available yet.");
+        }
     });
+}
+
+function getCurrentPosition() {
+    if (currentPosition) {
+        return currentPosition;
+    } else {
+        console.log("Marker position is not set yet.");
+        return null;
+    }
 }
 
 function loadGoogleMapsScript() {
@@ -36,7 +55,7 @@ function loadGoogleMapsScript() {
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly`;
     script.async = true;
     script.defer = true;
-    script.onload = () => initMap();  
+    script.onload = initMap;
     document.head.appendChild(script);
 }
 
