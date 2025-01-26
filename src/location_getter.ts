@@ -1,11 +1,8 @@
-import * as dotenv from 'dotenv';
+import "dotenv";
 import axios from 'axios'; 
-import { resolve } from 'path';
-
-dotenv.config({ path: resolve(__dirname, '../.env') });
 
 function loadGoogleApiKey(): string {
-  const apiKey = process.env.SECRET_KEY;
+  const apiKey = import.meta.env.VITE_SECRET_KEY;
   if (!apiKey) {
     throw new Error("API key is missing. Check your .env file.");
   }
@@ -14,17 +11,17 @@ function loadGoogleApiKey(): string {
 
 async function getLocation(): Promise<{ lat: number; lng: number }> {
     const apiKey = loadGoogleApiKey();
-    const url = `https://www.googleapis.com/geolocation/v1/geolocate?key=${apiKey}`;
+    const url = `/geo/geolocation/v1/geolocate?key=${apiKey}`;
   
-    try {
+    try { 
       const response = await axios.post(url, {});
       if (!response.data || !response.data.location) {
         throw new Error("Failed to retrieve location from the API.");
       }
       const { lat, lng } = response.data.location;
-      console.log("Location found:", { lat, lng });
+      // console.log("Location found:", { lat, lng });
       return { lat, lng };
-    } catch (error) {
+    } catch (error) { 
       if (error instanceof Error) {
         console.error("Error fetching location:", error.message);
       } else {
@@ -36,7 +33,7 @@ async function getLocation(): Promise<{ lat: number; lng: number }> {
 
 async function getCityFromCoordinates(lat: number, lng: number): Promise<string> {
   const apiKey = loadGoogleApiKey();
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+  const url = `/api/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
   
   try {
     const response = await axios.get(url);
@@ -76,17 +73,16 @@ async function main() {
   }
 }
 
-async function test() {
-  const apiKey = loadGoogleApiKey();
-  const location = await getLocation(apiKey);
-  const city = await getCityFromCoordinates(location.lat, location.lng, apiKey);
+// async function test() {
+//   const location = await getLocation();
+//   const city = await getCityFromCoordinates(location.lat, location.lng);
 
-  console.log(`Test - Coordinates: Latitude ${location.lat}, Longitude ${location.lng}`);
-  console.log(`Test - City: ${city}`);
-}
+//   console.log(`Test - Coordinates: Latitude ${location.lat}, Longitude ${location.lng}`);
+//   console.log(`Test - City: ${city}`);
+// }
 
-if (require.main === module) {
-  main();
-}
+// if (require.main === module) {
+//   main();
+// }
 
-export { loadGoogleApiKey, getLocation, getCityFromCoordinates, test };
+export { loadGoogleApiKey, getLocation, getCityFromCoordinates };
