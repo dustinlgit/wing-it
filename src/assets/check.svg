@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/2000/svg">
-<svg width="100%" height="100%" viewBox="0 0 1080 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:event;clip-rule:event;stroke-linejoin:round;stroke-miterlimit:2;">
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/1999/xlink">
+<svg width="100%" height="100%" viewBox="0 0 1080 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g transform="matrix(1,0,0,1,-1180,0)">
         <rect id="Artboard2" x="1180" y="0" width="1080" height="1080" style="fill:none;"/>
-        <clipPath id="_clip1">
-            <rect id="Artboard21" x="1180" y="0" width="1080" height="1080"/>
-        </clipPath>
-        <g clip-path="url(#_clip1)">
-            <g transform="matrix(1.3911,0,0,1.3911,-672.7,-272.688)">
-                <g transform="matrix(0.534003,0.534003,-0.707107,0.707107,1872.13,-90.8353)">
-                    <rect x="432.711" y="194.652" width="267.089" height="664.726" style="fill:rgb(235,235,235);"/>
-                </g>
-                <g transform="matrix(0.534003,-0.534003,0.460835,0.460835,1011.05,725.569)">
-                    <rect x="432.711" y="194.652" width="267.089" height="664.726" style="fill:rgb(235,235,235);"/>
-                </g>
+        <g id="Artboard21">
+            <g transform="matrix(0.742854,0.742854,-0.98366,0.98366,1931.62,-399.049)">
+                <path d="M699.8,859.378L259.697,859.378C224.279,859.378 190.312,848.753 165.267,829.84C140.223,810.926 126.153,785.274 126.153,758.527L126.153,758.526C126.153,731.778 140.223,706.126 165.267,687.213C190.312,668.3 224.279,657.674 259.697,657.674L432.711,657.674L432.711,295.504C432.711,268.756 446.781,243.104 471.825,224.191C496.87,205.278 530.837,194.652 566.255,194.652L566.257,194.652C601.675,194.652 635.642,205.278 660.686,224.191C685.731,243.105 699.8,268.756 699.8,295.504L699.8,859.378Z" style="fill:white;"/>
             </g>
         </g>
     </g>

@@ -22,3 +22,30 @@ html, body {
         opacity: 1;
     }
 }
+
+/* Circular button styling */
+.switch-button {
+    position: fixed;
+    left: 20px;  /* Position towards the left */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background-color: #13a86b;  /* Green color */
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    transition: transform 0.3s ease-in-out;
+}
+
+.switch-button:hover {
+    transform: translateY(-50%) scale(1.1);
+}
