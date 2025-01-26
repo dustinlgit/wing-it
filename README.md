@@ -24,6 +24,10 @@ Here are some visuals of the project in action:
 ### Screenshot 2
 ![image](https://github.com/user-attachments/assets/cd128d3a-fea1-438c-8497-9d1feb6748a8)
 
+### Screenshot 3
+![image](https://github.com/user-attachments/assets/d0b546f4-e300-4dc6-b983-5e1cbf72637f)
+
+
 
 ## 🚀 Getting Started
 1. Clone the repository:
