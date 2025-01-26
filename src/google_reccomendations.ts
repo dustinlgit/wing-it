@@ -43,10 +43,10 @@ async function getTop50PopularPlaces(
 
       // Wait for the next page if there is one
       if (nextPageToken) {
-        await sleep(2000); // Delay for 2 seconds to wait for the next page token to become active
+        await sleep(1000);
       }
 
-    } while (nextPageToken && places.length < 50);
+    } while (nextPageToken && places.length < 30);
 
     // Filter and sort the places
     const top50Places = places
