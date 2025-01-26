@@ -7,4 +7,18 @@ html, body {
 #map {
     height: 100%;
     width: 100%;
+    transform: scale(0.9);  /* Start slightly zoomed out */
+    opacity: 0;
+    animation: zoomIn 1s ease-out forwards;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);  /* Start from smaller size */
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);  /* End at normal size */
+        opacity: 1;
+    }
 }
