@@ -32,7 +32,7 @@ body {
 .top-nav a:hover {
     background-color: #007BFF;
     color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .logo-container {
@@ -83,7 +83,7 @@ body {
     transform: translateY(50%);
     opacity: 0;
     pointer-events: none;
-    z-index: 9999;
+    z-index: -1;
 }
 
 @keyframes flyRight {
@@ -111,17 +111,18 @@ body {
 .start-button {
     text-decoration: none;
     font-size: 1.5rem;
-    color: #050505;
-    background-color: #42f804;
+    color: #ffffff;
+    background-color: #255d81;
     padding: 10px 20px;
     border-radius: 8px;
     font-weight: bold;
     transition: all 0.3s ease;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .start-button:hover {
-    background-color: #409e03;
-    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    color: #255D81FF;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
     transform: scale(1.1);
 }

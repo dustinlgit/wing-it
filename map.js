@@ -59,3 +59,15 @@ function loadGoogleMapsScript() {
 }
 
 loadGoogleMapsScript();
+
+document.addEventListener("DOMContentLoaded", () => {
+    const mapElement = document.getElementById("map");
+    mapElement.style.transform = "scale(0.9)";
+    mapElement.style.opacity = "0";
+
+    setTimeout(() => {
+        mapElement.style.transition = "transform 1s ease-out, opacity 1s ease-out";
+        mapElement.style.transform = "scale(1)";
+        mapElement.style.opacity = "1";
+    }, 300);
+});
