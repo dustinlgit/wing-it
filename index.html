@@ -2,29 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Wing It</title>
-    <link rel="stylesheet" href="home.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wing It - Welcome</title>
+    <link rel="stylesheet" href="welcome.css">
     <link href="https://fonts.googleapis.com/css2?family=Funnel+Display&display=swap" rel="stylesheet">
-    <!-- <script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js' integrity='sha512-L4lHq2JI/GoKsERT8KYa72iCwfSrKYWEyaBxzJeeITM9Lub5vlTj8tufqYk056exhjo2QDEipJrg6zen/DDtoQ==' crossorigin='anonymous' referrerpolicy='no-referrer')></script> -->
-    <base href=".">
 </head>
-<header class="header">
-    <div class="logo">Wing It</div>
-    <button class="profile-btn">
-        <img src="src/assets/profile.svg" alt="Profile">
-    </button>
-</header>
 <body>
-<div class="container">
-    <button class="btn btn-dislike" onclick="dislike()">
-        <img src="src/assets/x.svg" alt="Dislike">
-    </button>
-    <div class="card-stack" id="cardStack"></div>
-    <button class="btn btn-like" onclick="like()">
-        <img src="src/assets/check.svg" alt="Like">
-    </button>
-</div>
-<script type="module" src="home.js"></script>
+<div class="top-nav">
+    <a href="#">Sign Up</a>
+    <a href="#">Log In</a>
+    <a href="#">Contact Us</a>
+    <a href="map.html" id="mapLink">Map</a>
 
+    <script>
+    const mapLink = document.getElementById('mapLink');
+    mapLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log("Navigating to map.html");
+        window.location.href = "map.html";
+    });
+    </script>
+
+    
+</div>
+
+<div class="logo-container">
+    <a href="swipe.html" class="logo-link">
+        <h1>Wing It</h1>
+    </a>
+    <p class="slogan">Travel Better</p>
+</div>
+
+<img class="plane" src="images/plane.svg" alt="Plane Image">
+
+<div class="start-button-container">
+    <a href="swipe.html" class="start-button">Start My Recommendation</a>
+</div>
 </body>
 </html>

@@ -25,7 +25,6 @@ async function getTop50PopularPlaces(
     const places: any[] = [];
     let nextPageToken: string | undefined = undefined;
 
-    // Loop through pages of results
     do {
       const requestUrl = nextPageToken
         ? `${url}&pagetoken=${nextPageToken}`
@@ -54,10 +53,8 @@ async function getTop50PopularPlaces(
       .sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0))
       .slice(0, 50);
 
-    // Initialize the array to hold the results
     const popularPlaces: { name: string; description: string; image: string }[] = [];
 
-    // Fetch additional details for each place
     for (let i = 0; i < top50Places.length; i++) {
       const place = top50Places[i];
 
@@ -81,16 +78,9 @@ async function getTop50PopularPlaces(
     return popularPlaces;
 
   } catch (error) {
-    // if (error instanceof Error) {
-    //   // console.error("Error getting places:", error.message);
-    // } else {
-    //   // console.error("Unexpected error:", error);
-    // }
     return [];
   }
 }
-
-
 
 
 // Example usage
