@@ -1,24 +1,16 @@
 import axios from "axios";
-import { config } from "dotenv";
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Access environment variables directly using Vite's import.meta.env
+const EDEN_AI_KEY = import.meta.env.VITE_EDEN_AI_KEY;
+const EDEN_WORKFLOW_ID = import.meta.env.VITE_EDEN_WORKFLOW_ID;
 
-config({ path: resolve(__dirname, "../.env") });
-
-function loadEnvVariable(key) {
-  const value = process.env[key];
-  if (!value) {
-    throw new Error(`Environment variable ${key} is missing. Check your .env file.`);
-  }
-  return value;
+// Ensure environment variables are properly set
+if (!EDEN_AI_KEY || !EDEN_WORKFLOW_ID) {
+  throw new Error("Environment variables VITE_EDEN_AI_KEY or VITE_EDEN_WORKFLOW_ID are missing.");
 }
 
+// Launch workflow function
 async function launchWorkflow(cityName, numPlaces) {
-  const EDEN_AI_KEY = loadEnvVariable("EDEN_AI_KEY");
-  const EDEN_WORKFLOW_ID = loadEnvVariable("EDEN_WORKFLOW_ID");
   const url = `https://api.edenai.run/v2/workflow/${EDEN_WORKFLOW_ID}/execution/`;
 
   const payload = {
@@ -27,7 +19,7 @@ async function launchWorkflow(cityName, numPlaces) {
 
   console.log(`Launching workflow for city: ${cityName} and number of places: ${numPlaces}`);
   console.log(`Sending request to: ${url}`);
-  console.log(`Payload:`, payload);
+  console.log("Payload:", payload);
 
   const response = await axios.post(url, payload, {
     headers: {
@@ -40,9 +32,8 @@ async function launchWorkflow(cityName, numPlaces) {
   return response.data.id;
 }
 
+// Poll workflow results
 async function pollWorkflowResults(workflowExecutionId) {
-  const EDEN_AI_KEY = loadEnvVariable("EDEN_AI_KEY");
-  const EDEN_WORKFLOW_ID = loadEnvVariable("EDEN_WORKFLOW_ID");
   const url = `https://api.edenai.run/v2/workflow/${EDEN_WORKFLOW_ID}/execution/${workflowExecutionId}/`;
 
   console.log(`Polling for results from: ${url}`);
@@ -65,12 +56,13 @@ async function pollWorkflowResults(workflowExecutionId) {
     }
 
     console.log("Workflow still processing. Retrying in 3 seconds...");
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
   throw new Error("Workflow execution timed out.");
 }
 
+// Extract places from results
 function extractPlaces(results) {
   const generatedText =
     results.output.results[0]?.generated_text ||
@@ -88,9 +80,8 @@ function extractPlaces(results) {
     .filter(Boolean);
 }
 
-async function getPlaceDescription(placeName) {
-  const EDEN_AI_KEY = loadEnvVariable("EDEN_AI_KEY");
-  const EDEN_WORKFLOW_ID = loadEnvVariable("EDEN_WORKFLOW_ID");
+// Get place description
+export async function getPlaceDescription(placeName) {
   const url = `https://api.edenai.run/v2/workflow/${EDEN_WORKFLOW_ID}/execution/`;
 
   const payload = {
@@ -131,6 +122,7 @@ async function getPlaceDescription(placeName) {
   }
 }
 
+// Main function for testing
 /*
 async function main() {
   try {
@@ -144,20 +136,16 @@ async function main() {
     console.log(`Top ${numPlaces} places to visit in ${cityName}:`);
     console.log(places);
 
-
     console.log("SECOND TEST for get DESCRIPTION");
 
     const testPlace = "Irvine";
     console.log(`Testing getPlaceDescription for: ${testPlace}`);
     const description = await getPlaceDescription(testPlace);
     console.log(`Description for ${testPlace}: ${description}`);
-
   } catch (error) {
     console.error("Error:", error.message);
   }
 }
 
-
 main();
-
 */
