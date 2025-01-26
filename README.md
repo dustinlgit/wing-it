@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# Wing-It
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+![Project Banner](path-to-image1.png) <!-- Optional: Add a banner or main image -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📖 Description
+Go to the map and choose a city to get a list of highly rated destinations. Keep on swipping!
 
-## Expanding the ESLint configuration
+## 🌟 Features
+- Select a city on the map to get a stack of "cards" to swipe through
+- Swipe through your cards with a 'yes' or 'no' and get curated results
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🎥 Demo
+Watch the video demo below:
 
-- Configure the top-level `parserOptions` property like this:
+[![Video Thumbnail](path-to-image2.png)](https://youtu.be/tZQ1GTPlC9M)) <!-- Clicking the image will open the video -->
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🖼 Screenshots
+Here are some visuals of the project in action:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Screenshot 1
+![Screenshot 1](path-to-screenshot1.png)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Screenshot 2
+![Screenshot 2](path-to-screenshot2.png)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 🚀 Getting Started
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dustinlgit/wing-it
+2. Install Vite
+   ```bash
+   npm install vite
+3. Have fun swiping!
