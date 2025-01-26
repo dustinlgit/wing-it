@@ -45,13 +45,13 @@ async function getTop50PopularPlaces(
         await sleep(2000); // Delay for 2 seconds to wait for the next page token to become active
       }
 
-    } while (nextPageToken && places.length < 10);
+    } while (nextPageToken && places.length < 50);
 
     // Filter and sort the places
     const top50Places = places
       .filter((place: any) => !place.name.toLowerCase().includes(cityName.toLowerCase()))
       .sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0))
-      .slice(0, 10);
+      .slice(0, 50);
 
     // Initialize the array to hold the results
     const popularPlaces: { name: string; description: string; image: string }[] = [];
