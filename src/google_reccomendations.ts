@@ -25,7 +25,6 @@ async function getTop50PopularPlaces(
     const places: any[] = [];
     let nextPageToken: string | undefined = undefined;
 
-    // Loop through pages of results
     do {
       const requestUrl = nextPageToken
         ? `${url}&pagetoken=${nextPageToken}`
@@ -46,7 +45,11 @@ async function getTop50PopularPlaces(
         await sleep(1000);
       }
 
+<<<<<<< HEAD
     } while (nextPageToken && places.length < 30);
+=======
+    } while (nextPageToken && places.length < 50);
+>>>>>>> 2fda6c69e1f4639dd97defd9a832829a39f92453
 
     // Filter and sort the places
     const top50Places = places
@@ -54,13 +57,13 @@ async function getTop50PopularPlaces(
       .sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0))
       .slice(0, 50);
 
-    // Initialize the array to hold the results
     const popularPlaces: { name: string; description: string; image: string }[] = [];
 
-    // Fetch additional details for each place
     for (let i = 0; i < top50Places.length; i++) {
       const place = top50Places[i];
 
+<<<<<<< HEAD
+=======
       // const detailsUrl = `/api/maps/api/place/details/json?place_id=${place.place_id}&key=${apiKey}`;
       // const detailsResponse = await axios.get(detailsUrl);
 
@@ -71,6 +74,7 @@ async function getTop50PopularPlaces(
       // const placeDetails = detailsResponse.data.result;
       // const description = placeDetails?.overview || "No description available";
 
+>>>>>>> 2fda6c69e1f4639dd97defd9a832829a39f92453
       const description = await getPlaceDescription(place.name);
 
       const image = await fetchCityPictureUrl(place.name); 
@@ -81,16 +85,9 @@ async function getTop50PopularPlaces(
     return popularPlaces;
 
   } catch (error) {
-    // if (error instanceof Error) {
-    //   // console.error("Error getting places:", error.message);
-    // } else {
-    //   // console.error("Unexpected error:", error);
-    // }
     return [];
   }
 }
-
-
 
 
 // Example usage

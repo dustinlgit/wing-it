@@ -8,7 +8,7 @@ function loadGoogleApiKey(): string {
     return GAPIKey;
 }
 
-export async function fetchCityPictureUrl(cityName: string): Promise<string> {
+async function fetchCityPictureUrl(cityName: string): Promise<string> {
     const key: string = loadGoogleApiKey();
     const searchUrl = `/api/maps/api/place/textsearch/json?query=${encodeURIComponent(cityName)}&key=${key}`;
 
@@ -50,3 +50,5 @@ export async function fetchCityPictureUrl(cityName: string): Promise<string> {
 //         }
 //     }
 // })();
+
+export { fetchCityPictureUrl }
