@@ -1,73 +1,39 @@
-let map;
-let marker;
-let currentPosition = null;
+import { getLocation } from './location_getter;';
 
-function initMap() {
-    const mapOptions = {
-        center: { lat: 33.6584317, lng: -117.8457841 }, // starts at UCI
-        zoom: 12,
-    };
-
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    marker = new google.maps.Marker({
-        position: map.getCenter(),
+export function initMap() {
+    const center = { lat: -34.397, lng: 150.644 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 8,
+        center: center
+    });
+    const marker = new google.maps.Marker({
+        position: center,
         map: map,
-        title: "Drag me!",
-        draggable: true,
     });
-
-    marker.addListener("dragend", function() {
-        const position = marker.getPosition();
-        currentPosition = {
-            lat: position.lat(),
-            lng: position.lng(),
-        };
-        console.log(`New Position: Lat: ${currentPosition.lat}, Lng: ${currentPosition.lng}`);
-
-        const currentPos = getCurrentPosition(); 
-        if (currentPos) {
-            console.log("Marker's current position:", currentPos);
-        } else {
-            console.log("Position is not available yet.");
-        }
-    });
-}
-
-export function getCurrentPosition() {
-    if (currentPosition) {
-        return currentPosition;
-    } else {
-        console.log("Marker position is not set yet.");
-        return null;
-    }
 }
 
 function loadGoogleMapsScript() {
-    const apiKey = import.meta.env.VITE_SECRET_KEY; 
+    const apiKey = import.meta.env.VITE_SECRET_KEY;  // Load the API key from the .env file
     if (!apiKey) {
         console.error('Google Maps API key is missing!');
         return;
     }
-
+    
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly`;
     script.async = true;
     script.defer = true;
-    script.onload = initMap;
+    script.onload = () => initMap();  
     document.head.appendChild(script);
 }
 
+function moveMarkerToPosition() {
+    pos = getLocation();
+
+    const newPosition = { lat: pos.lat, lng: pos.lng };
+    marker.setPosition(newPosition);
+    map.setCenter(newPosition);
+}
+
+moveMarkerToPosition();
 loadGoogleMapsScript();
-
-document.addEventListener("DOMContentLoaded", () => {
-    const mapElement = document.getElementById("map");
-    mapElement.style.transform = "scale(0.9)";
-    mapElement.style.opacity = "0";
-
-    setTimeout(() => {
-        mapElement.style.transition = "transform 1s ease-out, opacity 1s ease-out";
-        mapElement.style.transform = "scale(1)";
-        mapElement.style.opacity = "1";
-    }, 300);
-});
