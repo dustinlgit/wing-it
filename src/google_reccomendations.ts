@@ -57,21 +57,8 @@ async function getTop50PopularPlaces(
 
     for (let i = 0; i < top50Places.length; i++) {
       const place = top50Places[i];
-
-      // const detailsUrl = `/api/maps/api/place/details/json?place_id=${place.place_id}&key=${apiKey}`;
-      // const detailsResponse = await axios.get(detailsUrl);
-
-      // if (!detailsResponse.data || !detailsResponse.data.result) {
-      //   throw new Error(`Failed to fetch details for place ID: ${place.place_id}`);
-      // }
-
-      // const placeDetails = detailsResponse.data.result;
-      // const description = placeDetails?.overview || "No description available";
-
       const description = await getPlaceDescription(place.name);
-
       const image = await fetchCityPictureUrl(place.name); 
-
       popularPlaces.push({ name: place.name, description: description, image: image, });
     }
 
