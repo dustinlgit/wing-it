@@ -141,17 +141,19 @@ body {
 }
 
 .btn {
-    width: 80px;
-    height: 80px;
+    width: 10vw;  /* 10% of viewport width */
+    max-width: 100px; /* Set a max width to avoid too large on bigger screens */
+    aspect-ratio: 1 / 1; /* Maintains a perfect circle */
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    background-color: transparent; /* Remove any background color if necessary */
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    overflow: hidden; /* Ensures the image stays inside the circle */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn img {
