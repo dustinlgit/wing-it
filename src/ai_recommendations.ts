@@ -82,7 +82,7 @@ function extractPlaces(results) {
 
 // Get place description
 export async function getPlaceDescription(placeName) {
-  const url = `https://api.edenai.run/v2/workflow/${EDEN_WORKFLOW_ID}/execution/`;
+  const url = `https://api.edenai.run/v2/workflow/${VITE_EDEN_WORKFLOW_ID}/execution/`;
 
   const payload = {
     prompt: `Provide a short description (around 20 words) of ${placeName} for tourists. Highlight its key attractions and activities.`,
@@ -97,7 +97,7 @@ export async function getPlaceDescription(placeName) {
     const launchResponse = await axios.post(url, payload, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${EDEN_AI_KEY}`,
+        Authorization: `Bearer ${VITE_EDEN_AI_KEY}`,
       },
     });
 
